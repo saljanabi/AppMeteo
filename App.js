@@ -2,16 +2,20 @@ import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { DocumentPicker, FileSystem } from 'expo';
-import { func } from 'prop-types';
+//import { func } from 'prop-types';
+import { SideBar } from "./sidebar";
+import { Burger } from "./components/burger/burger"
 
 const Weather = () => {
     state = {
         data: null,
     };
+    // Pick document
     _pickDocument = async () => {
         const result = await DocumentPicker.getDocumentAsync({
             type: '*/*',
         });
+        // JSON parser
         if (result.type === 'cancel') return;
         console.log('uri', result.uri);
         try {
@@ -44,21 +48,22 @@ const Weather = () => {
             this.state = { data: e.message };
         }
     }
-    
     return (
         <View style={styles.weatherContainer}>
         <View style={styles.headerContainer}>
+        <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"} />
         <MaterialCommunityIcons size={48} name="weather-sunny" color={'#fff'} />
         <Text style={styles.tempText}>AppMeteo˚</Text>
         </View>
         <View style={styles.bodyContainer}>
         <Button
+        style={styles.uploadFile}
         title="Click"
         onPress={async () => {
             _pickDocument();
         }}
         />
-        <Text>{JSON.stringify(this.state.data)}</Text>  
+        <Text>{JSON.stringify(this.state.data)}</Text>
         <Text style={styles.title}>So Sunny</Text>
         <Text style={styles.subtitle}>It hurts my eyes!</Text>
         </View>
