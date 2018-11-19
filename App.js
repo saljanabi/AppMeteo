@@ -2,9 +2,11 @@ import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { DocumentPicker, FileSystem } from 'expo';
-//import { func } from 'prop-types';
-import { SideBar } from "./sidebar";
-import { Burger } from "./components/burger/burger"
+import { func } from 'prop-types';
+import { FooterTabs } from './components/footer/footer';
+import { Content, Card, CardItem, Body } from "native-base";
+import { MainDrawer } from "./components/drawer/drawer";
+
 
 const Weather = () => {
     state = {
@@ -37,7 +39,7 @@ const Weather = () => {
                         }
                     }
                 }
-
+                
             });
             console.log('content', content);
             console.log('res', res);
@@ -51,7 +53,6 @@ const Weather = () => {
     return (
         <View style={styles.weatherContainer}>
         <View style={styles.headerContainer}>
-        <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"} />
         <MaterialCommunityIcons size={48} name="weather-sunny" color={'#fff'} />
         <Text style={styles.tempText}>AppMeteo˚</Text>
         </View>
@@ -63,9 +64,32 @@ const Weather = () => {
             _pickDocument();
         }}
         />
+        <Content padder>
+        <Card>
+        <CardItem header bordered>
+        <Text>NativeBase</Text>
+        </CardItem>
+        <CardItem bordered>
+        <Body>
+        <Text>
+        NativeBase is a free and open source framework that enable
+        developers to build
+        high-quality mobile apps using React Native iOS and Android
+        apps
+        with a fusion of ES6.
+        </Text>
+        </Body>
+        </CardItem>
+        <CardItem footer bordered>
+        <Text>GeekyAnts</Text>
+        </CardItem>
+        </Card>
+        </Content>
         <Text>{JSON.stringify(this.state.data)}</Text>
         <Text style={styles.title}>So Sunny</Text>
         <Text style={styles.subtitle}>It hurts my eyes!</Text>
+        { FooterTabs }
+        { MainDrawer }
         </View>
         </View>
         );    
@@ -74,7 +98,7 @@ const Weather = () => {
     const styles = StyleSheet.create({
         weatherContainer: {
             flex: 1,
-            backgroundColor: '#f7b733'
+            backgroundColor: '#FFB600'
         },
         headerContainer: {
             flex: 1,
@@ -87,8 +111,8 @@ const Weather = () => {
         },
         bodyContainer: {
             flex: 2,
-            alignItems: 'flex-start',
-            justifyContent: 'flex-end',
+            alignItems: 'center',
+            justifyContent: 'center',
             paddingLeft: 25,
             marginBottom: 40
         },
@@ -98,7 +122,7 @@ const Weather = () => {
         },
         subtitle: {
             fontSize: 24,
-            color: '#fff'
+            color: '#000'
         }
     });
     

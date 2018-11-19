@@ -1,13 +1,11 @@
 import React from 'react';
 import { Button } from 'react-native';
 
-export const burger = <Button
-onPress = { onPressLearnMore }
+export const Burger = <Button
+onPress = {() => {
+    alert('toto');
+}}
 title = "Learn More"
-color = "#841584"
+color = "#A914CC"
 accessibilityLabel = "Learn more about this purple button"
 />
-
-const styles = StyleSheet.create({
-    color: '#FFB600',
-});
