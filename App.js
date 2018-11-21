@@ -1,11 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { View, Text } from 'react-native';
 import { DocumentPicker, FileSystem } from 'expo';
-import { func } from 'prop-types';
-import { FooterTabs } from './components/footer/footer';
-import { Content, Card, CardItem, Body } from "native-base";
-import { MainDrawer } from "./components/drawer/drawer";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import FooterTabs from './components/footer/footer';
+import StyleSheet from './src/style/styles';
 
 
 const Weather = () => {
@@ -15,8 +13,9 @@ const Weather = () => {
     // Pick document
     _pickDocument = async () => {
         const result = await DocumentPicker.getDocumentAsync({
-            type: '*/*',
+            type: '*/.his*',
         });
+
         // JSON parser
         if (result.type === 'cancel') return;
         console.log('uri', result.uri);
@@ -28,18 +27,18 @@ const Weather = () => {
             const content = await FileSystem.readAsStringAsync(result.uri).then(() => {
                 let lines = content.split('\n');
                 let res = [];
-                for(var i = 1; i <= lines.length; i++){
+                for (var i = 1; i <= lines.length; i++) {
                     columns = lines[i].split('\t');
-                    if (i == 1){
+                    if (i == 1) {
                         titles = columns;
                     } else {
                         res[i] = {};
-                        for(var j = 0; j <= columns.length; j++){
+                        for (var j = 0; j <= columns.length; j++) {
                             res[i][titles[j]] = columns[j];
                         }
                     }
                 }
-                
+
             });
             console.log('content', content);
             console.log('res', res);
@@ -51,79 +50,21 @@ const Weather = () => {
         }
     }
     return (
-        <View style={styles.weatherContainer}>
-        <View style={styles.headerContainer}>
-        <MaterialCommunityIcons size={48} name="weather-sunny" color={'#fff'} />
-        <Text style={styles.tempText}>AppMeteo˚</Text>
-        </View>
-        <View style={styles.bodyContainer}>
-        <Button
-        style={styles.uploadFile}
-        title="Click"
-        onPress={async () => {
-            _pickDocument();
-        }}
-        />
-        <Content padder>
-        <Card>
-        <CardItem header bordered>
-        <Text>NativeBase</Text>
-        </CardItem>
-        <CardItem bordered>
-        <Body>
-        <Text>
-        NativeBase is a free and open source framework that enable
-        developers to build
-        high-quality mobile apps using React Native iOS and Android
-        apps
-        with a fusion of ES6.
+        <View style={StyleSheet.weatherContainer}>
+            <View style={StyleSheet.headerContainer}>
+                <MaterialCommunityIcons size={48} name="weather-sunny" color={'#fff'} />
+                <Text style={StyleSheet.tempText}>AppMeteo˚</Text>
+            </View>
+            <View style={StyleSheet.bodyContainer}>
+                <Text style={StyleSheet.paragraph}>
+                    AppMeteo˚ est une application qui permet d'analyser des fichiers de données météorologiques sous React Native. Cette application est principalement destinée aux militaires qui travaillent en zone désertique. Une station méteo fournit des fichiers de données aux militaires. Elle capte la pluviométrie, la température, la vitesse du vent. Ces données vont servir aux militaires pour garer des hélicoptères ou faire voler les drones pour observer un territoire.
         </Text>
-        </Body>
-        </CardItem>
-        <CardItem footer bordered>
-        <Text>GeekyAnts</Text>
-        </CardItem>
-        </Card>
-        </Content>
-        <Text>{JSON.stringify(this.state.data)}</Text>
-        <Text style={styles.title}>So Sunny</Text>
-        <Text style={styles.subtitle}>It hurts my eyes!</Text>
-        { FooterTabs }
-        { MainDrawer }
+                <Text>{JSON.stringify(this.state.data)}</Text>
+            </View>
+            <FooterTabs />
         </View>
-        </View>
-        );    
-    };
-    
-    const styles = StyleSheet.create({
-        weatherContainer: {
-            flex: 1,
-            backgroundColor: '#FFB600'
-        },
-        headerContainer: {
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center'
-        },
-        tempText: {
-            fontSize: 48,
-            color: '#fff'
-        },
-        bodyContainer: {
-            flex: 2,
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingLeft: 25,
-            marginBottom: 40
-        },
-        title: {
-            fontSize: 48,
-            color: '#fff'
-        },
-        subtitle: {
-            fontSize: 24,
-            color: '#000'
-        }
-    });
-    
-    export default Weather;
+    );
+};
+
+
+export default Weather;

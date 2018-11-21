@@ -12,6 +12,7 @@
     "@material-ui/core": "^3.4.0",
     "@material-ui/icons": "^3.0.1",
     "expo": "^31.0.4",
+    "highcharts-react-official": "^2.0.0",
     "native-base": "^2.8.1",
     "react": "16.5.0",
     "react-burger-menu": "^1.12.0",
