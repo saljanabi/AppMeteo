@@ -45,4 +45,7 @@ export default StyleSheet.create({
         right: 0,
         bottom: 0
     },
+    tabsIcons: {
+        color: '#fff'
+    }
 });

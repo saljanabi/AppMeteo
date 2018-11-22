@@ -1,7 +1,8 @@
-import React { Component } from 'react';
-import { View, Footer, FooterTab, Button } from 'native-base';
+import React, { Component } from 'react';
+import { Footer, FooterTab, Button } from 'native-base';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import StyleSheet from '..../src/style/styles';
+import { DocumentPicker, FileSystem } from 'expo';
+import StyleSheet from '../../src/style/styles';
 
 export default class FooterTabs extends Component {
   state = {
@@ -9,61 +10,64 @@ export default class FooterTabs extends Component {
   };
   // Pick document
   _pickDocument = async () => {
-    const result = await DocumentPicker.getDocumentAsync({
-      type: '*/*',
+    let result = await DocumentPicker.getDocumentAsync({
+        type: '*/*',
     });
-    // JSON parser
-    if (result.type === 'cancel') return;
-    console.log('uri', result.uri);
-    try {
-      const info = await FileSystem.getInfoAsync(result.uri);
-      this.state = { data: info };
-      console.warn('info', info);
-      console.log('info', info);
-      const content = await FileSystem.readAsStringAsync(result.uri).then(() => {
-        let lines = content.split('\n');
-        let res = [];
-        for (var i = 1; i <= lines.length; i++) {
-          columns = lines[i].split('\t');
-          if (i == 1) {
-            titles = columns;
-          } else {
-            res[i] = {};
-            for (var j = 0; j <= columns.length; j++) {
-              res[i][titles[j]] = columns[j];
-            }
-          }
-        }
-      });
-      console.log('content', content);
-      console.log('res', res);
-      this.state = { data: content };
-    } catch (e) {
-      console.warn('exception', e.message);
-      console.log('exception', e.message);
-      this.state = { data: e.message };
+
+    if (result.type === 'cancel') {
+      console.log('cancel');
+      return;
     }
+
+    const info = await FileSystem.getInfoAsync(result.uri);
+    this.state = { data: info };
+    const content = await FileSystem.readAsStringAsync(result.uri);
+    
+    let lines = content.split('\n');
+
+    let res = [];
+    let i = 1;
+    let j = 0;
+    while (lines[i]) {
+      columns = lines[i].split('\t');
+      if (i == 1) {
+        //1ere itération de la boucle : on récupere le titre des colonnes
+        titles = columns;
+      } else {
+        res[i - 2] = {};
+        //Pour chaque colonne, on enregistre dans res[i][titre] la valeur associée
+        j = 0;
+        while (columns[j]) {
+          res[i - 2][titles[j]] = columns[j];
+          j++;
+        }
+      }
+      i++;
+    }
+    let filename = res[2].CREATEDATE;
+
+    console.log('res 2 = ', res[2]);
+    console.log('filename', filename);
+    this.state = { data: res };
   }
   render() {
     return (
-      <View style={StyleSheet.footer}>
-      <Footer>
+      <Footer style={StyleSheet.footer}>
       <FooterTab>
       <Button
       onPress={async () => {
-        _pickDocument();
+        this._pickDocument();
       }}>
-      <MaterialCommunityIcons size={30} name="cloud-upload" color={'#fff'} />
+      <MaterialCommunityIcons size={30} name="cloud-upload" style={StyleSheet.tabsIcons} />
       </Button>
       <Button>
-      <MaterialCommunityIcons size={30} name="monitor-dashboard" color={'#fff'} />
+      <MaterialCommunityIcons size={30} name="monitor-dashboard" style={StyleSheet.tabsIcons} />
       </Button>
       <Button>
-      <MaterialCommunityIcons size={30} name="delete-circle" color={'#fff'} />
+      <MaterialCommunityIcons size={30} name="delete-circle" style={StyleSheet.tabsIcons} />
       </Button>
       </FooterTab>
       </Footer>
-      </View>
       );
     }
   }

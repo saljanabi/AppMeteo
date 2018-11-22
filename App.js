@@ -12,42 +12,46 @@ const Weather = () => {
     };
     // Pick document
     _pickDocument = async () => {
-        const result = await DocumentPicker.getDocumentAsync({
-            type: '*/.his*',
-        });
+        // console.warn('info', 'ici');
+        // console.log('info', 'ici');
+        // const result = await DocumentPicker.getDocumentAsync({
+        //     type: '*/*',
+        // });
+        console.log('info', 'app la');
+        // console.warn('info', 'app la');
 
-        // JSON parser
-        if (result.type === 'cancel') return;
-        console.log('uri', result.uri);
-        try {
-            const info = await FileSystem.getInfoAsync(result.uri);
-            this.state = { data: info };
-            console.warn('info', info);
-            console.log('info', info);
-            const content = await FileSystem.readAsStringAsync(result.uri).then(() => {
-                let lines = content.split('\n');
-                let res = [];
-                for (var i = 1; i <= lines.length; i++) {
-                    columns = lines[i].split('\t');
-                    if (i == 1) {
-                        titles = columns;
-                    } else {
-                        res[i] = {};
-                        for (var j = 0; j <= columns.length; j++) {
-                            res[i][titles[j]] = columns[j];
-                        }
-                    }
-                }
+        // // JSON parser
+        // if (result.type === 'cancel') return;
+        // console.log('uri', result.uri);
+        // try {
+        //     const info = await FileSystem.getInfoAsync(result.uri);
+        //     this.state = { data: info };
+        //     console.warn('info', info);
+        //     console.log('info', info);
+        //     const content = await FileSystem.readAsStringAsync(result.uri).then(() => {
+        //         let lines = content.split('\n');
+        //         let res = [];
+        //         for (var i = 1; i <= lines.length; i++) {
+        //             columns = lines[i].split('\t');
+        //             if (i == 1) {
+        //                 titles = columns;
+        //             } else {
+        //                 res[i] = {};
+        //                 for (var j = 0; j <= columns.length; j++) {
+        //                     res[i][titles[j]] = columns[j];
+        //                 }
+        //             }
+        //         }
 
-            });
-            console.log('content', content);
-            console.log('res', res);
-            this.state = { data: content };
-        } catch (e) {
-            console.warn('exception', e.message);
-            console.log('exception', e.message);
-            this.state = { data: e.message };
-        }
+        //     });
+        //     console.log('content', content);
+        //     console.log('res', res);
+        //     this.state = { data: content };
+        // } catch (e) {
+        //     console.warn('exception', e.message);
+        //     console.log('exception', e.message);
+        //     this.state = { data: e.message };
+        // }
     }
     return (
         <View style={StyleSheet.weatherContainer}>
