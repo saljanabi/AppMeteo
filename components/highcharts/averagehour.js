@@ -1,20 +1,22 @@
-import ChartView from 'react-native-highcharts';
-...
-render() {
-    var Highcharts='Highcharts';
-    var conf={
+import React, { Component } from 'react';
+import { ChartView } from 'react-native-highcharts';
+
+export default class HighchartAverageHour extends Component {
+    render() {
+        var Highcharts='Highcharts';
+        var conf={
             chart: {
                 type: 'spline',
                 animation: Highcharts.svg, // don't animate in old IE
                 marginRight: 10,
                 events: {
                     load: function () {
- 
+                        
                         // set up the updating of the chart each second
                         var series = this.series[0];
                         setInterval(function () {
                             var x = (new Date()).getTime(), // current time
-                                y = Math.random();
+                            y = Math.random();
                             series.addPoint([x, y], true, true);
                         }, 1000);
                     }
@@ -40,8 +42,8 @@ render() {
             tooltip: {
                 formatter: function () {
                     return '<b>' + this.series.name + '</b><br/>' +
-                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
-                        Highcharts.numberFormat(this.y, 2);
+                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                    Highcharts.numberFormat(this.y, 2);
                 }
             },
             legend: {
@@ -55,9 +57,9 @@ render() {
                 data: (function () {
                     // generate an array of random data
                     var data = [],
-                        time = (new Date()).getTime(),
-                        i;
- 
+                    time = (new Date()).getTime(),
+                    i;
+                    
                     for (i = -19; i <= 0; i += 1) {
                         data.push({
                             x: time + i * 1000,
@@ -68,18 +70,19 @@ render() {
                 }())
             }]
         };
- 
-    const options = {
-        global: {
-            useUTC: false
-        },
-        lang: {
-            decimalPoint: ',',
-            thousandsSep: '.'
+        
+        const options = {
+            global: {
+                useUTC: false
+            },
+            lang: {
+                decimalPoint: ',',
+                thousandsSep: '.'
+            }
+        };
+        
+        return (
+            <ChartView style={{height:300}} config={conf} options={options}></ChartView>
+            );
         }
-    };
- 
-    return (
-      <ChartView style={{height:300}} config={conf} options={options}></ChartView>
-    );
-}
+    }

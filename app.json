@@ -5,10 +5,9 @@
     "slug": "AppMeteo",
     "privacy": "public",
     "sdkVersion": "31.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+      "android": {
+        "package": "com.etna.appmeteo"
+    },
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,9 +22,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "githubUrl": "https://github.com/saljanabi/AppMeteo"
   }
 }

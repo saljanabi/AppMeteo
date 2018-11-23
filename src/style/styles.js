@@ -45,6 +45,7 @@ export default StyleSheet.create({
         bottom: 0
     },
     tabsIcons: {
-        color: '#fff'
+        color: '#fff',
+        fontSize: 30,
     }
 });

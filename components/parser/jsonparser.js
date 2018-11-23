@@ -67,4 +67,4 @@ export default class JsonParser extends Component {
             data: res,
             filename : filename
         };
-    }
+    };

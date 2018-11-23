@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Footer, FooterTab, Button } from 'native-base';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { DocumentPicker, FileSystem } from 'expo';
+import { DocumentPicker, FileSystem} from 'expo';
 import StyleSheet from '../../src/style/styles';
-import {createStackNavigator} from 'react-navigation';
-import { checkPropTypes } from 'prop-types';
+import HighchartAverageHour from '../highcharts/averagehour';
+// import {createStackNavigator} from 'react-navigation';
+// import { checkPropTypes } from 'prop-types';
 
 export default class FooterTabs extends Component {
   state = {
@@ -53,19 +54,12 @@ export default class FooterTabs extends Component {
     // Conversion de res qui contient nos colonnes avec leurs valeurs en chaîne JSON
     let json = JSON.stringify(res);
     
-    // const dir_info = await Expo.FileSystem.getInfoAsync(dir);
-    // if (!Boolean(dir_info.exists)) {
-    //   try {
-    //     await FileSystem.makeDirectoryAsync(dir, {
-    //       intermediates: true
-    //     });
-    //   } catch(e) {
-    //     console.log("could not create directory " + dir);
-    //     console.log(e);
-    //   }
-    // }
     console.log(dir);
     console.log(FileSystem.cacheDirectory);
+
+  
+    console.log('res 2 = ', res[2]);
+    console.log('filename', filename);
     
     FileSystem.writeAsStringAsync(dir + filename, json);
     this.state = { 
@@ -81,16 +75,16 @@ export default class FooterTabs extends Component {
       onPress={async () => {
         this._pickDocument();
       }}>
-      <MaterialCommunityIcons size={30} name="cloud-upload" style={StyleSheet.tabsIcons} />
+      <MaterialCommunityIcons name="cloud-upload" style={StyleSheet.tabsIcons} />
       </Button>
       <Button
       onPress={async () => {
-        this._pickDocument();
+        HighchartAverageHour();
       }}>
-      <MaterialCommunityIcons size={30} name="monitor-dashboard" style={StyleSheet.tabsIcons} />
+      <MaterialCommunityIcons name="monitor-dashboard" style={StyleSheet.tabsIcons} />
       </Button>
       <Button>
-      <MaterialCommunityIcons size={30} name="delete-circle" style={StyleSheet.tabsIcons} />
+      <MaterialCommunityIcons name="delete-circle" style={StyleSheet.tabsIcons} />
       </Button>
       </FooterTab>
       </Footer>
