@@ -2,7 +2,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-
+    
     weatherContainer: {
         flex: 1,
         backgroundColor: '#FFB600'
@@ -10,33 +10,32 @@ export default StyleSheet.create({
     headerContainer: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        margin: 0,
+        padding: 0
     },
-    tempText: {
-        fontSize: 48,
+    Icon: {
+        color: '#fff',
+        fontSize: 35,
+    },
+    Title: {
+        flex: .3,
+        fontSize: 35,
         color: '#fff'
     },
     paragraph: {
-        fontSize: 20,
+        fontSize: 15,
         color: '#fff',
-        margin: 24,
-        fontSize: 18,
-        textAlign: 'justify'
+        textAlign: 'left',
+        marginLeft: 15,
+        marginRight: 15
     },
     bodyContainer: {
-        flex: 2,
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingLeft: 25,
-        marginBottom: 40
-    },
-    title: {
-        fontSize: 48,
-        color: '#fff'
-    },
-    subtitle: {
-        fontSize: 24,
-        color: '#000'
+        paddingLeft: 1,
+        marginTop: 0
     },
     footer: {
         flex: 1,

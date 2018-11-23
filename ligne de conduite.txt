@@ -5,7 +5,9 @@ Les stations météos captent la pluviométrie, la température, la vitesse du v
 - Désert pas équipé en réseau internet. Il faut aller chercher les données et les ramener au QG pour les analyser et fabriquer le journal météo.
 
 Le projet technique
-1. Réalisation d'une application mobile destinée aux tablettes qui fonctionne en local et qui permet l'analyse des données météorologiques. Choix entre Ionic, Cordova et React Native. Réalisation des graphiques : libre sur le choix technique, script highchart.js pour réaliser les demandes graphiques.
+1. Réalisation d'une application mobile destinée aux tablettes qui fonctionne en local et qui permet l'analyse des données météorologiques. 
+Choix entre Ionic, Cordova et React Native. 
+Réalisation des graphiques : libre sur le choix technique, script highchart.js pour réaliser les demandes graphiques.
 2. Envoi des fichiers des données météo dans le dossier Téléchargements. 
 3. Proposition d'interface d'upload et de transfert du fichier dans le dossier Téléchargements. 
 4. L'interface proposera un transfert du fichier téléchargé vers un dossier sûr. Le fichier ne pourra être supprimé qu'à travers l'interface. 
